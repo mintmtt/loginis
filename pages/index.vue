@@ -1,60 +1,71 @@
 <template>
   <div class="login100">
-    <v-card class="wrap-login100" color="rgba(255, 255, 255, 0.75)">
-      <v-row class="center"
-        ><v-col cols="6">
-          <v-img src="https://illustoon.com/photo/1774.png"></v-img
-        ></v-col>
-        <v-col cols="6">
-          <v-container>
-            <v-form>
-              <v-row>
-                <v-col cols="12">
-                  <h1 class="logtitle">Sign in to work</h1>
-                  <v-text-field
-                    v-model="email"
-                    label="E-mail"
-                    required
-                    filled
+      <v-card class="wrap-login100" color="rgba(255, 255, 255, 0.75)">
+        <v-row class="center"
+          ><v-col cols="6">
+            <v-img
+              src="https://illustoon.com/photo/1774.png"
+            ></v-img
+          ></v-col>
+          <v-col cols="6">
+            <v-container>
+              <v-form>
+                <v-row>
+                  <v-col cols="12">
+                    <h1 class="logtitle">Sign in</h1>
+                    <v-text-field
+                      v-model="email"
+                      label="E-mail"
+                      required
+                      filled
+                      rounded
+                      dense
+                      solo-inverted
+                    ></v-text-field
+                  ></v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="password"
+                      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="show2 ? 'text' : 'password'"
+                      name="input-10-2"
+                      label="Password"
+                      class="input-group--focused"
+                      filled
+                      rounded
+                      dense
+                      solo-inverted
+                      @click:append="show2 = !show2"
+                    ></v-text-field></v-col
+                ></v-row>
+                <v-hover>
+                  <v-btn
                     rounded
-                    dense
-                    solo-inverted
-                  ></v-text-field
-                ></v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show2 ? 'text' : 'password'"
-                    name="input-10-2"
-                    label="Password"
-                    class="input-group--focused"
-                    filled
-                    rounded
-                    dense
-                    solo-inverted
-                    @click:append="show2 = !show2"
-                  ></v-text-field></v-col
-              ></v-row>
-              <v-hover>
-                <v-btn
-                  rounded
-                  class="container-btn"
-                  color="#DCB13C"
-                  @click="login()"
+                    class="container-btn"
+                    color="#DCB13C"
+                    @click="login()"
+                  >
+                    SIGN IN
+                  </v-btn></v-hover
                 >
-                  SIGN IN
-                </v-btn></v-hover
-              >
-              <div class="sp">
+                <!-- <div class="sp">
                 <v-btn color="red" class="mr-4" @click="logout"> logout </v-btn>
-              </div>
-              <!-- <v-btn color="error" class="mr-4" @click="logout"> logout </v-btn>    -->
-            </v-form>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
+              </div> -->
+                <v-hover>
+                  <v-btn class="sp" color="red" href="/register" nuxt rounded>
+                    SIGN UP
+                  </v-btn></v-hover
+                >
+                <!-- <div class="sp">
+                <v-btn color="red" class="mr-4" flat to="/register" nuxt> register </v-btn>
+              </div> -->
+                <!-- <v-btn color="error" class="mr-4" @click="logout"> logout </v-btn>    -->
+              </v-form>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -77,10 +88,10 @@ export default {
         },
       },
 
-      emailRules: [
-        (v) => !!v || 'E-mail is required',
-        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
+      // emailRules: [
+      //   (v) => !!v || 'E-mail is required',
+      //   (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      // ],
     }
   },
   methods: {
@@ -88,18 +99,18 @@ export default {
       var user = auth.currentUser
       console.log(user === null)
     },
-    logout() {
-      auth
-        .signOut()
-        .then(() => {
-          // Sign-out successful.
-          console.log('Sign-out successful')
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(error)
-        })
-    },
+    // logout() {
+    //   auth
+    //     .signOut()
+    //     .then(() => {
+    //       // Sign-out successful.
+    //       console.log('Sign-out successful')
+    //     })
+    //     .catch((error) => {
+    //       // An error happened.
+    //       console.log(error)
+    //     })
+    // },
     login() {
       auth
         .signInWithEmailAndPassword(this.email, this.password)
@@ -111,10 +122,12 @@ export default {
           console.log('token x : ' + token)
           console.log('user x : ' + user)
           alert('login successful!')
-          if (user.email == 'admin123@gmail.com') { //password:123123
+          if (user.email == 'admin123@gmail.com') {
+            //password:123123
             console.log('admin')
             this.$router.replace('/admin')
-          } else if (user.email == 'owner123@gmail.com') { //password:123123
+          } else if (user.email == 'owner123@gmail.com') {
+            //password:123123
             console.log('owner')
             this.$router.replace('/owner')
           } else {
@@ -132,7 +145,11 @@ export default {
           console.log('ErrorCode' + errorMessage)
           // ...
         })
-      // ถ้า sing in ได้แทนที่ด้วย ถ้าเป็น function โปรแกรมจะไม่ยอมรู้จัก this  ต้อง =>
+    },
+  },
+  computed: {
+    index() {
+      return this.$router.replace('/')
     },
   },
 }

@@ -17,4 +17,4 @@ export default function ({
       redirect('index') //9ตอนนี้ใส่redirecแต่redirecยังไม่ทำงานไม่ได้
     }
   }
-}
+} //redirect

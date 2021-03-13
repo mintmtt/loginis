@@ -81,10 +81,6 @@ export default {
         //   to: '/inspire',
         // },
         // {
-        //   icon: 'mdi-chart-bubble',
-        //   title: 'Login',
-        //   to: '/login',
-        // },
       ],
       miniVariant: false,
       right: true,
